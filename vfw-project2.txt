@@ -1,0 +1,9 @@
+The Git Repository for Project 2 of VFW is located at:
+
+https://github.com/scottcaruso/VFW-project2
+
+HTTP: https://scottcaruso@github.com/scottcaruso/VFW-project2.git
+
+Git Read-Only: git://github.com/scottcaruso/VFW-project2.git
+
+SSH: git@github.com:scottcaruso/VFW-project2.git
