@@ -71,13 +71,12 @@ window.addEventListener("DOMContentLoaded", function(){
 				elementName("form").style.display = "none";
 				elementName("eraseData").style.display = "inline";
 				elementName("displayData").style.display = "none";
-				elementName("addCard").style.display = "inline";			
+				elementName("addCard").style.display = "inline";		
 				break;
 			case "off":
 				elementName("form").style.display = "block";
 				elementName("eraseData").style.display = "inline";
 				elementName("displayData").style.display = "inline";
-				elementName("addNew").style.display = "none";
 				elementName("cards").style.display = "none";		
 				break;
 			default:
@@ -116,6 +115,7 @@ window.addEventListener("DOMContentLoaded", function(){
    		elementName("addCard").style.display = "inline";
    		for(var i=0, y=localStorage.length; i<y; i++){
    			var makedt = document.createElement("dt");
+   			var editDeleteLinks = document.createElement("dd");
    			listCardsDL.appendChild(makedt);
    			var key = localStorage.key(i);
    			var value = localStorage.getItem(key);
@@ -131,9 +131,33 @@ window.addEventListener("DOMContentLoaded", function(){
    				makeCardDetails.appendChild(makeCardDetailItem);
    				var cardText = (obj[n][0] + " " + obj[n][1]);
    				makeCardDetailItem.innerHTML = cardText;
+   				makeCardDetails.appendChild(editDeleteLinks);
    			};
+   			makeEditDeleteLinks(localStorage.key(i), editDeleteLinks);
    		};
    	};
+   	
+   	//This function creates the Edit Card and Delete Card links.
+   	function makeEditDeleteLinks(key, editDeleteLinks){
+		//edit link
+		var editCardLink = document.createElement("a");
+		editCardLink.href = "#";
+		editCardLink.key = key;
+		editCardLink.setAttribute("class","editcard");
+		var editCardGuts = "Edit Card";
+		editCardLink.addEventListener("click", editCard);
+		editCardLink.innerHTML = editCardGuts;
+		editDeleteLinks.appendChild(editCardLink);
+		//delete link
+		var deleteCardLink = document.createElement("a");
+		deleteCardLink.href = "#";
+		deleteCardLink.key = key;
+		deleteCardLink.setAttribute("class", "deletecard");
+		var deleteCardGuts = "Delete Card";
+		//deleteCardLink.addEventListener("click", deleteCard);
+		deleteCardLink.innerHTML = deleteCardGuts;
+		editDeleteLinks.appendChild(deleteCardLink);
+	};
    	
    	function eraseCardData(){
    		if(localStorage.length === 0){
@@ -145,7 +169,70 @@ window.addEventListener("DOMContentLoaded", function(){
    			return false;
    		};
    	};
-
+   	
+   	function editCard(){
+   		var card = localStorage.getItem(this.key);
+   		var cardUnstring = JSON.parse(card);
+   		toggleControls("off");
+   		elementName("cardname").value = cardUnstring.name[1];
+   		elementName("manacosts").value = cardUnstring.mana[1];
+   		var colors = cardUnstring.colors;
+   		var namesOfColors = colors[1];
+		for(var i=0; i <= namesOfColors.length; i++){
+			if(namesOfColors[i] == "white"){
+				elementName("white").setAttribute("checked", "checked");
+			};
+			if(namesOfColors[i] == "black"){
+				elementName("black").setAttribute("checked", "checked");
+			};
+			if(namesOfColors[i] == "blue"){
+				elementName("blue").setAttribute("checked", "checked");
+			};
+			if(namesOfColors[i] == "red"){
+				elementName("red").setAttribute("checked", "checked");
+			};
+			if(namesOfColors[i] == "green"){
+				elementName("green").setAttribute("checked", "checked");
+			};
+			if(namesOfColors[i] == "colorless"){
+				elementName("colorless").setAttribute("checked", "checked");
+			};
+		};
+		var type = document.forms[0].type;
+		for(var i=0; i<type.length; i++){
+   			if(type[i].value == "Creature" && cardUnstring.type[1] == "Creature"){
+   				type[i].setAttribute("checked", "checked");
+   			} else if(type[i].value == "Planeswalker" && cardUnstring.type[1] == "Planeswalker"){
+   				type[i].setAttribute("checked", "checked");
+   			} else if(type[i].value == "Instant" && cardUnstring.type[1] == "Instant"){
+   				type[i].setAttribute("checked", "checked");
+   			} else if(type[i].value == "Sorcery" && cardUnstring.type[1] == "Sorcery"){
+   				type[i].setAttribute("checked", "checked");
+   			} else if(type[i].value == "Enchantment - Buff" && cardUnstring.type[1] == "Enchantment = Buff"){
+   				type[i].setAttribute("checked", "checked");
+   			} else if(type[i].value == "Enchantment - Curse" && cardUnstring.type[1] == "Enchantment = Curse"){
+   				type[i].setAttribute("checked", "checked");
+   			} else if(type[i].value == "Artifact" && cardUnstring.type[1] == "Artifact"){
+   				type[i].setAttribute("checked", "checked");
+   			} else if(type[i].value == "Land" && cardUnstring.type[1] == "Land"){
+   				type[i].setAttribute("checked", "checked");
+   			};	
+   		};		
+		elementName("currentuse").value = cardUnstring.usage[1];
+   		elementName("comments").value = cardUnstring.notes[1];
+   		elementName("dateacquired").value = cardUnstring.date[1];
+   		elementName("preference").value = cardUnstring.love[1];
+   		saveCardData.removeEventListener("click", saveCard);
+   		elementName("submit").value = "Edit Card";
+   		var newButton = elementName("submit");
+   		newButton.addEventListener("click", modify);
+   		newButton.key = this.key; 
+   	};
+   	
+   	function modify (){
+   	
+   	};
+   	
 	//Make things happen when the links are clicked.
 	var displayCardData = elementName("displayData");
 	displayCardData.addEventListener("click", displayCards);
