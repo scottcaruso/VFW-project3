@@ -31,12 +31,14 @@
 		</header>
 		<form action="" method="post" id="form">
 			<fieldset>
-                <legend>Primary Details</legend>
-                <div class="formelement">
-                    <label for="cardname">Card Name </label>
-                    <input type="text" id="cardname" />
-                </div>
-              	<label for="manacost" id="manacost">Mana Cost </label>
+                <legend>Primary Details - <b>Required</b></legend>
+				<div class="errors" id="errors">
+				</div>
+				<div class="formelement">
+					<label for="cardname">Card Name </label>
+					<input type="text" id="cardname" />
+				</div>
+				<label for="manacost" id="manacost">Mana Cost </label>
 				<!--  commenting out, as the javascript now creates this <select id="manacost">
 					<option value="0">0</option>
 					<option value="1">1</option>
@@ -120,26 +122,26 @@
 				</dl>
 			</fieldset>			
 			<fieldset class="secondary">
-				<legend>Secondary Details</legend>
-					<div class="formelement">
-                        <label for="currentuse">Currently In Use? </label>
-                        <select id="currentuse">
-                            <option value="true">Yes</option>
-                            <option value="false">No</option>
-                        </select>
-                    </div>
-                    <div class="formelement">
-                        <label class="notes" for="comments">Additional Notes </label>
-                        <textarea id="comments"></textarea>
-                    </div>
-                    <div class="formelement">
-                        <label for="dateacquired">Date Acquired </label>
-                        <input type="date" id="dateacquired" placeholder="YYYY/MM/DD" />
-					</div>
-                    <div class="formelement">
-                        <label for="preference">How Much I Love This Card </label>
-                        <input type="range" id="preference" min="1" max="10" />
-                    </div>
+				<legend>Secondary Details - Optional</legend>
+				<div class="formelement">
+					<label for="currentuse">Currently In Use? </label>
+					<select id="currentuse">
+						<option value="true">Yes</option>
+						<option value="false">No</option>
+					</select>
+				</div>
+				<div class="formelement">
+					<label class="notes" for="comments">Additional Notes </label>
+					<textarea id="comments"></textarea>
+				</div>
+				<div class="formelement">
+					<label for="dateacquired">Date Acquired </label>
+					<input type="date" id="dateacquired" placeholder="YYYY/MM/DD" />
+				</div>
+				<div class="formelement">
+					<label for="preference">How Much I Love This Card </label>
+					<input type="range" id="preference" min="1" max="10" />
+				</div>
 			</fieldset>			
 				<input type="button" value="Submit Card Info" id="submit" />
 		</form>

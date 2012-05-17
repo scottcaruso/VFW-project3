@@ -112,3 +112,8 @@ span.addCard{
     position: absolute;
     right: 15px;
 }
+
+div.errors{
+	font-weight: bold;
+	text-align: center;
+}

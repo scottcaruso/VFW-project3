@@ -7,6 +7,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var manaCosts = ["0","1","2","3","4","5","6","7","8","9","10+"];
     var typeValue;
     makeManaCosts();
+    var errorText = elementName("errors");
 	
 	//The below function gets the name of elements from the form.
     function elementName(x){
@@ -77,7 +78,8 @@ window.addEventListener("DOMContentLoaded", function(){
 				elementName("form").style.display = "block";
 				elementName("eraseData").style.display = "inline";
 				elementName("displayData").style.display = "inline";
-				elementName("cards").style.display = "none";		
+				elementName("cards").style.display = "none";
+				elementName("addCard").style.display = "none";		
 				break;
 			default:
 				elementName("addCard").style.display = "none";
@@ -86,8 +88,12 @@ window.addEventListener("DOMContentLoaded", function(){
 	};
    	
    	//To store the data
-   	function saveCard() {
-   		var id = Math.floor(Math.random()*3253533);
+   	function saveCard(key) {
+   		if(!key){
+   			var id = Math.floor(Math.random()*3253533);
+   		} else {
+   			var id = key;
+   		};
    		var cardColors = getCardColors();
    		getCardType();
    		var card = {};
@@ -225,19 +231,65 @@ window.addEventListener("DOMContentLoaded", function(){
    		saveCardData.removeEventListener("click", saveCard);
    		elementName("submit").value = "Edit Card";
    		var newButton = elementName("submit");
-   		newButton.addEventListener("click", modify);
+   		newButton.addEventListener("click", validate);
    		newButton.key = this.key; 
    	};
    	
-   	function modify (){
+   	//Remember - the validate function only checked against name and colors; manacost and card type
+   	//have default values and cannot be empty.
    	
+   	function validate (x){
+   		window.scrollTo(0,0);
+   		var getName = elementName("cardname");
+   		console.log(getName.value);
+   		var getColors = function isAColorChecked(){
+			if(elementName("white").checked){
+				var areColorsChecked = true;
+			} else if(elementName("black").checked){
+				var areColorsChecked = true;
+			} else if(elementName("blue").checked){
+				var areColorsChecked = true;
+			} else if(elementName("red").checked){
+				var areColorsChecked = true;
+			} else if(elementName("green").checked){
+				var areColorsChecked = true;
+			} else if(elementName("colorless").checked){
+				var areColorsChecked = true;
+   			} else {
+   				var areColorsChecked = false;
+   			};
+   			return areColorsChecked 
+   		};
+   		errorText.innerHTML = ""; //so that function resets properly
+   		var errorMessage = [];
+   		if(getName.value === ""){
+   			var nameError = "Please enter a name for this card.";
+   			errorMessage.push(nameError);
+   		};
+   		var colors = getColors();
+   		if(colors === false){
+   			var colorsError = "Please select at least one color for this card.";
+   			errorMessage.push(colorsError);
+   		};
+   		if(errorMessage.length >= 1){
+   			for(var i = 0, j=errorMessage.length; i < j; i++){
+   				var makeError = document.createElement("p");
+   				makeError.innerHTML = errorMessage[i];   	
+   				errorText.appendChild(makeError);	
+   			};
+   		   	x.preventDefault();
+   			return false;
+   		} else {
+   			saveCard(this.key);
+   		};
+
    	};
-   	
+
 	//Make things happen when the links are clicked.
 	var displayCardData = elementName("displayData");
 	displayCardData.addEventListener("click", displayCards);
   	var clearCardData = elementName("eraseData");
   	clearCardData.addEventListener("click", eraseCardData);
   	var saveCardData = elementName("submit");
-  	saveCardData.addEventListener("click", saveCard);                            
+  	saveCardData.addEventListener("click", validate);                            
 });
