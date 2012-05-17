@@ -160,7 +160,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		deleteCardLink.key = key;
 		deleteCardLink.setAttribute("class", "deletecard");
 		var deleteCardGuts = "Delete Card";
-		//deleteCardLink.addEventListener("click", deleteCard);
+		deleteCardLink.addEventListener("click", eraseCard);
 		deleteCardLink.innerHTML = deleteCardGuts;
 		editDeleteLinks.appendChild(deleteCardLink);
 	};
@@ -169,10 +169,13 @@ window.addEventListener("DOMContentLoaded", function(){
    		if(localStorage.length === 0){
    			alert("There are no cards in your binder to clear.");
    		} else {
-   			localStorage.clear();
-   			alert("All cards have been removed from your binder.");
-   			window.location.reload();
-   			return false;
+   			 var ask = confirm("Are you sure you want to erase all card data?");
+   				if(ask){
+					localStorage.clear();
+					alert("All cards have been removed from your binder.");
+					window.location.reload();
+					return false;
+				};
    		};
    	};
    	
@@ -283,6 +286,21 @@ window.addEventListener("DOMContentLoaded", function(){
    			saveCard(this.key);
    		};
 
+   	};
+   	
+   	function eraseCard(){
+   		var cardID = localStorage.getItem(this.key);
+   		var cardUnstring = JSON.parse(cardID);
+   		var cardNameArray = cardUnstring.name;
+   		var cardName = cardNameArray[1];
+   		var ask = confirm("Are you sure you want to delete this card?");
+   		if(ask){
+   			localStorage.removeItem(this.key);
+   			alert(cardName + " was successfully removed.");
+   			window.location.reload();
+   		} else {
+   			alert("Don't worry! " + cardName + " was not removed.");
+   		};
    	};
 
 	//Make things happen when the links are clicked.
