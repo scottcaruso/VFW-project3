@@ -1,0 +1,9 @@
+The Git Repository for Project 3 of VFW is located at:
+
+https://github.com/scottcaruso/VFW-project3
+
+HTTP: https://scottcaruso@github.com/scottcaruso/VFW-project3.git
+
+Git Read-Only: git://github.com/scottcaruso/VFW-project3.git
+
+SSH: git@github.com:scottcaruso/VFW-project3.git

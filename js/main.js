@@ -245,7 +245,6 @@ window.addEventListener("DOMContentLoaded", function(){
    	function validate (x){
    		window.scrollTo(0,0);
    		var getName = elementName("cardname");
-   		console.log(getName.value);
    		//verify that at least one of the colors is checked
    		var getColors = function isAColorChecked(){
 			if(elementName("white").checked){
