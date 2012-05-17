@@ -159,6 +159,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		deleteCardLink.href = "#";
 		deleteCardLink.key = key;
 		deleteCardLink.setAttribute("class", "deletecard");
+		deleteCardLink.setAttribute("id", "deletecard");
 		var deleteCardGuts = "Delete Card";
 		deleteCardLink.addEventListener("click", eraseCard);
 		deleteCardLink.innerHTML = deleteCardGuts;
@@ -245,6 +246,7 @@ window.addEventListener("DOMContentLoaded", function(){
    		window.scrollTo(0,0);
    		var getName = elementName("cardname");
    		console.log(getName.value);
+   		//verify that at least one of the colors is checked
    		var getColors = function isAColorChecked(){
 			if(elementName("white").checked){
 				var areColorsChecked = true;
@@ -263,6 +265,7 @@ window.addEventListener("DOMContentLoaded", function(){
    			};
    			return areColorsChecked 
    		};
+   		
    		errorText.innerHTML = ""; //so that function resets properly
    		var errorMessage = [];
    		if(getName.value === ""){

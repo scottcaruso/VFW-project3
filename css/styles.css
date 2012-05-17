@@ -117,3 +117,7 @@ div.errors{
 	font-weight: bold;
 	text-align: center;
 }
+
+a.deletecard{
+	padding-left: 35px;
+};
